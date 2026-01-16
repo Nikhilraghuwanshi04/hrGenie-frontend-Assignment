@@ -1,3 +1,4 @@
+import ProtectedRoute from '@/components/providers/ProtectedRoute';
 import { ReduxProvider } from "@/components/providers/ReduxProvider";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -29,7 +30,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ReduxProvider>
-          {children}
+          <ProtectedRoute>
+            {children}
+          </ProtectedRoute>
         </ReduxProvider>
       </body>
     </html>
