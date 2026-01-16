@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const API_URL = 'https://insightful-beauty-production-1f8b.up.railway.app/api';
+const API_URL = 'hrgenie-backend-assignment-production.up.railway.app';
 
 async function clearDb() {
     try {

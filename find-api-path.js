@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const BASE_URL = 'https://insightful-beauty-production-1f8b.up.railway.app';
+const BASE_URL = 'hrgenie-backend-assignment-production.up.railway.app';
 const paths = [
     '/api/auth/login',
     '/auth/login',
