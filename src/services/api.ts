@@ -1,9 +1,6 @@
 import axios from 'axios';
-import { store } from '../redux/store';
-
-// 1. Base URL
-// 1. Base URL
-const API_URL = process.env.NEXT_PUBLIC_API_URL + '/api' || 'http://localhost:5001/api';
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001';
+const API_URL = `${BASE_URL}/api`;
 
 const api = axios.create({
     baseURL: API_URL,
@@ -12,12 +9,20 @@ const api = axios.create({
     },
 });
 
+let store: any = null;
+
+export const injectStore = (_store: any) => {
+    store = _store;
+};
+
 // 2. Request Interceptor (Auth)
 api.interceptors.request.use(
     (config) => {
-        const token = store.getState().auth.token;
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
+        if (store) {
+            const token = store.getState().auth.token;
+            if (token) {
+                config.headers.Authorization = `Bearer ${token}`;
+            }
         }
         return config;
     },
@@ -60,7 +65,6 @@ export const documentApi = {
     delete: (id: string) => api.delete(`/documents/${id}`),
 };
 
-// AI Types (Gemini)
 export const aiApi = {
     grammarCheck: (text: string) => api.post('/ai/grammar', { text }),
     summarize: (text: string) => api.post('/ai/summarize', { text }),
